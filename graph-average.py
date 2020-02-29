@@ -70,7 +70,7 @@ ax = plt.axes()
 #ax.plot(timeSeries, bidPriceSeries, label = "BID")
 #ax.plot(timeSeries, askPriceSeries, label = "ASK")
 ax.plot(timeSeries, averagePriceSeries, label = "AVERAGE")
-ax.scatter(tradeTimeSeries, tradePriceSeries, color = 'r',label = "TRADES")
+ax.scatter(tradeTimeSeries, tradePriceSeries, s = 0.00005 * np.array(tradeVolumeSeries) ** 2,color = 'r',label = "TRADES")
 plt.legend()
 plt.show()
         
