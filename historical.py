@@ -1,6 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 from datetime import datetime
+import numpy as np
 
 my_day = "03/01/2020 "
 
@@ -73,9 +74,8 @@ fig = plt.figure()
 ax = plt.axes()
 ax.plot(timeSeries, bidPriceSeries, label = "BID")
 ax.plot(timeSeries, askPriceSeries, label = "ASK")
-ax.scatter(tradeTimeBidSeries, tradePriceBidSeries, s = tradeVolumeBidSeries, label = "BID")
-ax.scatter(tradeTimeAskSeries, tradePriceAskSeries, s = tradeVolumeAskSeries, label = "ASK")
+ax.scatter(tradeTimeBidSeries, tradePriceBidSeries, s = 0.00005 * np.array(tradeVolumeBidSeries) ** 2, label = "BID")
+ax.scatter(tradeTimeAskSeries, tradePriceAskSeries, s = 0.00005 * np.array(tradeVolumeAskSeries) ** 2 ,label = "ASK")
 plt.legend()
 plt.show()
-print(timeSeries[:5])
         
