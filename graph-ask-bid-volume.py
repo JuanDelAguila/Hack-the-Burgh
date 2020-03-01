@@ -125,5 +125,3 @@ ax.vlines(tradeTimeAboveAverage, closingPriceAboveAverage, closingPriceAboveAver
 
 plt.legend()
 plt.show()
-
-
