@@ -17,19 +17,17 @@ VOLUME = 4
 
 
 timeSeries = []
-askPriceSeries = []
+averagePriceSeries = []
 bidPriceSeries = []
+askPriceSeries = []
 askVolumeSeries = []
 bidVolumeSeries = []
 
-tradeTimeAskSeries = []
-tradeTimeBidSeries = []
-tradePriceBidSeries = []
-tradePriceAskSeries = []
-tradeVolumeBidSeries = []
-tradeVolumeAskSeries = []
+tradeTimeSeries = []
+tradePriceSeries = []
+tradeVolumeSeries = []
 
-currentIndex = "SP-FUTURE"
+currentIndex = "ESX-FUTURE"
 with open('market_data.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
@@ -40,12 +38,13 @@ with open('market_data.csv') as csv_file:
             bidPrice = float(row[BIDPRICE])
             bidVolume = float(row[BIDVOLUME])
             askPrice = float(row[ASKPRICE])
+            averagePrice = (bidPrice + askPrice) / 2
             askVolume = float(row[ASKVOLUME])
             if index == currentIndex:
                 timeSeries += [time]
-                bidPriceSeries += [bidPrice]
                 bidVolumeSeries += [bidVolume]
-                askVolumeSeries += [askVolume]
+                averagePriceSeries += [averagePrice]
+                bidPriceSeries += [bidPrice]
                 askPriceSeries += [askPrice]
         line_count += 1
 
@@ -60,22 +59,18 @@ with open('trades.csv') as csv_file:
             price = float(row[PRICE])
             volume = float(row[VOLUME])
             if index == currentIndex:
-                if side == "ASK":
-                    tradeTimeAskSeries += [time]
-                    tradePriceAskSeries += [price]
-                    tradeVolumeAskSeries += [volume]
-                else:
-                    tradeTimeBidSeries += [time]
-                    tradePriceBidSeries += [price]
-                    tradeVolumeBidSeries += [volume]
+                tradeTimeSeries += [time]
+                tradePriceSeries += [price]
+                tradeVolumeSeries += [volume]
         line_count += 1
 
 
 fig = plt.figure()
 ax = plt.axes()
-ax.plot(timeSeries, bidPriceSeries, color = 'blue', label = "BID")
-ax.plot(timeSeries, askPriceSeries, color = 'orange', label = "ASK")
-ax.vlines(timeSeries, bidPriceSeries - 0.0000005 * np.array(bidVolumeSeries) ** 2, bidPriceSeries, color = 'blue', label = "BID VOLUME")
-ax.vlines(timeSeries, askPriceSeries, askPriceSeries + 0.0000005 * np.array(askVolumeSeries) ** 2, color = 'orange', label = "ASK VOLUME")
+#ax.plot(timeSeries, bidPriceSeries, label = "BID")
+#ax.plot(timeSeries, askPriceSeries, label = "ASK")
+ax.plot(timeSeries, averagePriceSeries, label = "AVERAGE")
+ax.scatter(tradeTimeSeries, tradePriceSeries, s = 0.00005 * np.array(tradeVolumeSeries) ** 2,color = 'r',label = "TRADES")
 plt.legend()
 plt.show()
+        

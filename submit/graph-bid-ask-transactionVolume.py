@@ -29,7 +29,7 @@ tradePriceAskSeries = []
 tradeVolumeBidSeries = []
 tradeVolumeAskSeries = []
 
-currentIndex = "SP-FUTURE"
+currentIndex = "ESX-FUTURE"
 with open('market_data.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
@@ -45,7 +45,6 @@ with open('market_data.csv') as csv_file:
                 timeSeries += [time]
                 bidPriceSeries += [bidPrice]
                 bidVolumeSeries += [bidVolume]
-                askVolumeSeries += [askVolume]
                 askPriceSeries += [askPrice]
         line_count += 1
 
@@ -73,9 +72,10 @@ with open('trades.csv') as csv_file:
 
 fig = plt.figure()
 ax = plt.axes()
-ax.plot(timeSeries, bidPriceSeries, color = 'blue', label = "BID")
-ax.plot(timeSeries, askPriceSeries, color = 'orange', label = "ASK")
-ax.vlines(timeSeries, bidPriceSeries - 0.0000005 * np.array(bidVolumeSeries) ** 2, bidPriceSeries, color = 'blue', label = "BID VOLUME")
-ax.vlines(timeSeries, askPriceSeries, askPriceSeries + 0.0000005 * np.array(askVolumeSeries) ** 2, color = 'orange', label = "ASK VOLUME")
+ax.plot(timeSeries, bidPriceSeries, label = "BID")
+ax.plot(timeSeries, askPriceSeries, label = "ASK")
+ax.scatter(tradeTimeBidSeries, tradePriceBidSeries, s = 0.00005 * np.array(tradeVolumeBidSeries) ** 2, label = "BID")
+ax.scatter(tradeTimeAskSeries, tradePriceAskSeries, s = 0.00005 * np.array(tradeVolumeAskSeries) ** 2 ,label = "ASK")
 plt.legend()
 plt.show()
+        
