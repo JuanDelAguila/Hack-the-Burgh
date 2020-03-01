@@ -12,7 +12,7 @@ class Send (object):
 
 
     def placeOrder (self, action, index, price, volume):
-        ORDER = "TYPE=ORDER|USERNAME=Team31|PASSWORD=W5rqx2HT|FEEDCODE=" + index + "|ACTION=" + action + "|PRICE=" + str(price) + "|VOLUME=" + str(volume)
+        ORDER = "TYPE=ORDER|USERNAME=Team26|PASSWORD=eUGMfLQb|FEEDCODE=" + index + "|ACTION=" + action + "|PRICE=" + str(price) + "|VOLUME=" + str(volume)
         MESSAGE = bytes(ORDER, 'utf-8')
         self.sock.sendto(MESSAGE, (self.UDP_IP, self.UDP_PORT))
 
