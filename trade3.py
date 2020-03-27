@@ -74,7 +74,7 @@ while True:
                     mySender.placeOrder("SELL", "ESX-FUTURE", bidPriceESX - 1, stocksToSell)
                     print(mySender.getConfirmation())
                     ESXstatus = "WAIT"
-        
+
             if currentESXscore > 0:
                 average = BUY_THRESHOLD * sum ([getBidVolume(row) for row in pastESXdata]) / len(pastESXdata)
                 currentAverage  = sum (currentESXbidVolume) / len(currentESXbidVolume)
